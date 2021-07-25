@@ -1,13 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using Database.Contexts;
 using Database.Models.Payroll;
 using Dtos;
 using Dtos.Request;
 using Dtos.Response;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace Services.Api.Org {
-    public class OrganisationService:IOrganisationService {
+    public class OrganisationService : IOrganisationService {
         private readonly PayRollDatabaseContext _payRollDatabaseContext;
         private readonly IMapper _mapper;
 
@@ -29,7 +31,7 @@ namespace Services.Api.Org {
             return null;
         }
 
-        public async Task<PayrollDto> AddPayRollToOrganisation(NewPayrollDto dto)
+        public async Task<PayrollDto> InsertPayroll(NewPayrollDto dto)
         {
             var payroll = _mapper.Map<Payroll>(dto);
             await _payRollDatabaseContext.AddAsync(payroll);
@@ -39,6 +41,16 @@ namespace Services.Api.Org {
             }
 
             return null;
+        }
+
+        public async Task<bool> UpdateOrganisation(Guid organisationId,
+            JsonPatchDocument<NewOrganisationDto> patchDocument)
+        {
+            var organisation = await _payRollDatabaseContext.Organisations.FindAsync(organisationId);
+            var dto = _mapper.Map<NewOrganisationDto>(organisation);
+            patchDocument.ApplyTo(dto);
+            _mapper.Map(dto, organisation);
+            return await _payRollDatabaseContext.SaveChangesAsync() > 0;
         }
     }
 }

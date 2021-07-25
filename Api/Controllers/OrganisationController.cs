@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Dtos;
 using Dtos.Request;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Services.Api.Org;
 
@@ -38,10 +39,19 @@ namespace Api.Controllers {
         [HttpPost("payroll")]
         public async Task<IActionResult> AddNewPayroll([FromBody] NewPayrollDto dto)
         {
-            var payroll = await _organisationService.AddPayRollToOrganisation(dto);
+            var payroll = await _organisationService.InsertPayroll(dto);
             if (payroll != null)
                 return Ok(payroll);
             return BadRequest();
         }
+
+        // [HttpPatch("{organisationId:guid}")]
+        // public async Task<IActionResult> UpdateOrganisation(Guid organisationId,
+        //     [FromBody] JsonPatchDocument<NewOrganisationDto> patchDocument)
+        // {
+        //     if (await _organisationService.UpdateOrganisation(organisationId, patchDocument))
+        //         return Ok();
+        //     return BadRequest();
+        // }
     }
 }

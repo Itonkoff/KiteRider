@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 using Services.Api.Org;
 
 namespace Api {
@@ -35,7 +36,11 @@ namespace Api {
                     op => op.MigrationsAssembly("Database"));
             });
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(setupAction =>
+                {
+                    setupAction.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                });
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Api", Version = "v1"}); });
             services.AddAutoMapper(typeof(Program));
             

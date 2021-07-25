@@ -8,7 +8,7 @@ namespace Api.Profiles {
         public Rtd()
         {
             // Organisation
-            CreateMap<NewOrganisationDto, Organisation>();
+            CreateMap<NewOrganisationDto, Organisation>().ReverseMap();
 
             // Payroll
             CreateMap<NewPayrollDto, Payroll>()
