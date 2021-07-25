@@ -15,13 +15,18 @@ namespace Database.Contexts {
         public DbSet<Person> Persons { get; set; }
         public DbSet<Spouse> Spouses { get; set; }
 
+        // public PayRollDatabaseContext()
+        // {
+        //     
+        // }
+
         public PayRollDatabaseContext(DbContextOptions<PayRollDatabaseContext> options) : base(options)
         {
         }
 
         // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         // {
-        //     optionsBuilder.UseSqlServer("Server=localhost;Fridge=extra;Trusted_Connection=True;Enlist=False;");
+        //     optionsBuilder.UseSqlServer("Server=localhost;Database=traburu;Trusted_Connection=True;Enlist=False;");
         // }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

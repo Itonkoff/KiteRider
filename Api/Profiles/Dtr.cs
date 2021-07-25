@@ -10,6 +10,15 @@ namespace Api.Profiles {
             CreateMap<Organisation, OrganisationDto>()
                 .ForMember(dest => dest.Id, op =>
                     op.MapFrom(src => src.OrganisationId));
+
+            // PayrollDto
+            CreateMap<Payroll, PayrollDto>()
+                .ForMember(dest => dest.Id, op =>
+                    op.MapFrom(src => src.PayrollId))
+                .ForMember(dest => dest.Org, op =>
+                    op.MapFrom(src => src.OrganisationId))
+                .ForMember(dest => dest.PayRunDays, op =>
+                    op.MapFrom(src => src.PayRunDate));
         }
     }
 }

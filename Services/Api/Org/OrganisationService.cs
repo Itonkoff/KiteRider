@@ -28,5 +28,17 @@ namespace Services.Api.Org {
 
             return null;
         }
+
+        public async Task<PayrollDto> AddPayRollToOrganisation(NewPayrollDto dto)
+        {
+            var payroll = _mapper.Map<Payroll>(dto);
+            await _payRollDatabaseContext.AddAsync(payroll);
+            if (await _payRollDatabaseContext.SaveChangesAsync() > 0)
+            {
+                return _mapper.Map<PayrollDto>(payroll);
+            }
+
+            return null;
+        }
     }
 }

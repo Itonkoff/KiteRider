@@ -16,12 +16,31 @@ namespace Api.Controllers {
             _organisationService = organisationService;
         }
 
+        /// <summary>
+        /// For Inserting a new Organisation
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [HttpPost("")]
         public async Task<IActionResult> CreateNewOrganisation([FromBody] NewOrganisationDto dto)
         {
             var organisation = await _organisationService.InsertOrganisation(dto);
             if (organisation != null)
                 return Ok(organisation);
+            return BadRequest();
+        }
+
+        /// <summary>
+        /// For adding a payroll to an organisation
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPost("payroll")]
+        public async Task<IActionResult> AddNewPayroll([FromBody] NewPayrollDto dto)
+        {
+            var payroll = await _organisationService.AddPayRollToOrganisation(dto);
+            if (payroll != null)
+                return Ok(payroll);
             return BadRequest();
         }
     }

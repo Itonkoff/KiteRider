@@ -9,6 +9,13 @@ namespace Api.Profiles {
         {
             // Organisation
             CreateMap<NewOrganisationDto, Organisation>();
+
+            // Payroll
+            CreateMap<NewPayrollDto, Payroll>()
+                .ForMember(dest => dest.OrganisationId, op =>
+                    op.MapFrom(src => src.Org))
+                .ForMember(dest => dest.PayRunDate, op =>
+                    op.MapFrom(src => src.PayRunDays));
         }
     }
 }

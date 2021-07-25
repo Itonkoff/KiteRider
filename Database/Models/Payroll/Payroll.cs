@@ -13,7 +13,7 @@ namespace Database.Models.Payroll {
         public string Name { get; set; }
         public string Description { get; set; }
         public int PayRunDate { get; set; }
-        public DateTime LastRunDate { get; set; }
+        public DateTime? LastRunDate { get; set; }
         public PayrollStatus Status { get; set; }
         public Guid OrganisationId { get; set; }
         public bool SoftDeleted { get; set; }
@@ -21,5 +21,10 @@ namespace Database.Models.Payroll {
         public Organisation Organisation { get; set; }
         
         public ICollection<EmployeePayroll> Employees;
+
+        public void InitialiseStatus()
+        {
+            Status = PayrollStatus.PreRun;
+        }
     }
 }

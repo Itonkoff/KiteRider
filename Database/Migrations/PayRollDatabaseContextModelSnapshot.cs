@@ -15,11 +15,11 @@ namespace Fridge.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.0");
+                .HasAnnotation("ProductVersion", "5.0.8")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Fridge.Models.Payroll.BankDetail", b =>
+            modelBuilder.Entity("Database.Models.Payroll.BankDetail", b =>
                 {
                     b.Property<Guid>("BankDetailId")
                         .ValueGeneratedOnAdd()
@@ -55,7 +55,7 @@ namespace Fridge.Migrations
                     b.ToTable("bank_details");
                 });
 
-            modelBuilder.Entity("Fridge.Models.Payroll.EmployeePayroll", b =>
+            modelBuilder.Entity("Database.Models.Payroll.EmployeePayroll", b =>
                 {
                     b.Property<Guid>("EmployeeId")
                         .HasColumnType("uniqueidentifier")
@@ -79,7 +79,7 @@ namespace Fridge.Migrations
                     b.ToTable("employee_payroll");
                 });
 
-            modelBuilder.Entity("Fridge.Models.Payroll.Organisation", b =>
+            modelBuilder.Entity("Database.Models.Payroll.Organisation", b =>
                 {
                     b.Property<Guid>("OrganisationId")
                         .ValueGeneratedOnAdd()
@@ -95,7 +95,7 @@ namespace Fridge.Migrations
                     b.ToTable("organisations");
                 });
 
-            modelBuilder.Entity("Fridge.Models.Payroll.PaySpecification", b =>
+            modelBuilder.Entity("Database.Models.Payroll.PaySpecification", b =>
                 {
                     b.Property<Guid>("PaySpecificationId")
                         .ValueGeneratedOnAdd()
@@ -115,7 +115,7 @@ namespace Fridge.Migrations
                     b.ToTable("pay_specs");
                 });
 
-            modelBuilder.Entity("Fridge.Models.Payroll.Payroll", b =>
+            modelBuilder.Entity("Database.Models.Payroll.Payroll", b =>
                 {
                     b.Property<Guid>("PayrollId")
                         .ValueGeneratedOnAdd()
@@ -126,7 +126,7 @@ namespace Fridge.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("description");
 
-                    b.Property<DateTime>("LastRunDate")
+                    b.Property<DateTime?>("LastRunDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("last_run");
 
@@ -159,7 +159,7 @@ namespace Fridge.Migrations
                     b.ToTable("payrolls");
                 });
 
-            modelBuilder.Entity("Fridge.Models.Payroll.PayrollValue", b =>
+            modelBuilder.Entity("Database.Models.Payroll.PayrollValue", b =>
                 {
                     b.Property<Guid>("PayrollValueId")
                         .ValueGeneratedOnAdd()
@@ -197,7 +197,7 @@ namespace Fridge.Migrations
                     b.HasDiscriminator<string>("type").HasValue("PayrollValue");
                 });
 
-            modelBuilder.Entity("Fridge.Models.Payroll.Person", b =>
+            modelBuilder.Entity("Database.Models.Payroll.Person", b =>
                 {
                     b.Property<Guid>("PersonId")
                         .ValueGeneratedOnAdd()
@@ -259,7 +259,7 @@ namespace Fridge.Migrations
                     b.HasDiscriminator<string>("type").HasValue("Person");
                 });
 
-            modelBuilder.Entity("Fridge.Models.Payroll.Spouse", b =>
+            modelBuilder.Entity("Database.Models.Payroll.Spouse", b =>
                 {
                     b.Property<Guid>("SpouseId")
                         .ValueGeneratedOnAdd()
@@ -289,9 +289,9 @@ namespace Fridge.Migrations
                     b.ToTable("spouses");
                 });
 
-            modelBuilder.Entity("Fridge.Models.Payroll.Deduction", b =>
+            modelBuilder.Entity("Database.Models.Payroll.Deduction", b =>
                 {
-                    b.HasBaseType("Fridge.Models.Payroll.PayrollValue");
+                    b.HasBaseType("Database.Models.Payroll.PayrollValue");
 
                     b.Property<Guid>("EmployeeId")
                         .HasColumnType("uniqueidentifier")
@@ -310,9 +310,9 @@ namespace Fridge.Migrations
                     b.HasDiscriminator().HasValue("d");
                 });
 
-            modelBuilder.Entity("Fridge.Models.Payroll.Earning", b =>
+            modelBuilder.Entity("Database.Models.Payroll.Earning", b =>
                 {
-                    b.HasBaseType("Fridge.Models.Payroll.PayrollValue");
+                    b.HasBaseType("Database.Models.Payroll.PayrollValue");
 
                     b.Property<Guid>("EmployeeId")
                         .HasColumnType("uniqueidentifier")
@@ -331,9 +331,9 @@ namespace Fridge.Migrations
                     b.HasDiscriminator().HasValue("e");
                 });
 
-            modelBuilder.Entity("Fridge.Models.Payroll.Employee", b =>
+            modelBuilder.Entity("Database.Models.Payroll.Employee", b =>
                 {
-                    b.HasBaseType("Fridge.Models.Payroll.Person");
+                    b.HasBaseType("Database.Models.Payroll.Person");
 
                     b.Property<DateTime>("DateHired")
                         .HasColumnType("datetime2")
@@ -350,9 +350,9 @@ namespace Fridge.Migrations
                     b.HasDiscriminator().HasValue("e");
                 });
 
-            modelBuilder.Entity("Fridge.Models.Payroll.BankDetail", b =>
+            modelBuilder.Entity("Database.Models.Payroll.BankDetail", b =>
                 {
-                    b.HasOne("Fridge.Models.Payroll.Employee", "Employee")
+                    b.HasOne("Database.Models.Payroll.Employee", "Employee")
                         .WithMany("BankDetails")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -361,21 +361,21 @@ namespace Fridge.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("Fridge.Models.Payroll.EmployeePayroll", b =>
+            modelBuilder.Entity("Database.Models.Payroll.EmployeePayroll", b =>
                 {
-                    b.HasOne("Fridge.Models.Payroll.Employee", "Employee")
+                    b.HasOne("Database.Models.Payroll.Employee", "Employee")
                         .WithMany("PayRolls")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Fridge.Models.Payroll.PaySpecification", "PaySpecification")
+                    b.HasOne("Database.Models.Payroll.PaySpecification", "PaySpecification")
                         .WithOne("Payroll")
-                        .HasForeignKey("Fridge.Models.Payroll.EmployeePayroll", "PaySpecificationId")
+                        .HasForeignKey("Database.Models.Payroll.EmployeePayroll", "PaySpecificationId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Fridge.Models.Payroll.Payroll", "Payroll")
+                    b.HasOne("Database.Models.Payroll.Payroll", "Payroll")
                         .WithMany("Employees")
                         .HasForeignKey("PayrollId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -388,9 +388,9 @@ namespace Fridge.Migrations
                     b.Navigation("PaySpecification");
                 });
 
-            modelBuilder.Entity("Fridge.Models.Payroll.Payroll", b =>
+            modelBuilder.Entity("Database.Models.Payroll.Payroll", b =>
                 {
-                    b.HasOne("Fridge.Models.Payroll.Organisation", "Organisation")
+                    b.HasOne("Database.Models.Payroll.Organisation", "Organisation")
                         .WithMany("PayRolls")
                         .HasForeignKey("OrganisationId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -399,9 +399,9 @@ namespace Fridge.Migrations
                     b.Navigation("Organisation");
                 });
 
-            modelBuilder.Entity("Fridge.Models.Payroll.Spouse", b =>
+            modelBuilder.Entity("Database.Models.Payroll.Spouse", b =>
                 {
-                    b.HasOne("Fridge.Models.Payroll.Employee", "Employee")
+                    b.HasOne("Database.Models.Payroll.Employee", "Employee")
                         .WithMany("Spouses")
                         .HasForeignKey("EmployeeSpouseId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -410,9 +410,9 @@ namespace Fridge.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("Fridge.Models.Payroll.Deduction", b =>
+            modelBuilder.Entity("Database.Models.Payroll.Deduction", b =>
                 {
-                    b.HasOne("Fridge.Models.Payroll.EmployeePayroll", "AssociatedPayroll")
+                    b.HasOne("Database.Models.Payroll.EmployeePayroll", "AssociatedPayroll")
                         .WithMany("Deductions")
                         .HasForeignKey("EmployeeId", "PayrollId", "PaySpecificationId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -421,9 +421,9 @@ namespace Fridge.Migrations
                     b.Navigation("AssociatedPayroll");
                 });
 
-            modelBuilder.Entity("Fridge.Models.Payroll.Earning", b =>
+            modelBuilder.Entity("Database.Models.Payroll.Earning", b =>
                 {
-                    b.HasOne("Fridge.Models.Payroll.EmployeePayroll", "AssociatedPayroll")
+                    b.HasOne("Database.Models.Payroll.EmployeePayroll", "AssociatedPayroll")
                         .WithMany("Earnings")
                         .HasForeignKey("EmployeeId", "PayrollId", "PaySpecificationId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -432,29 +432,29 @@ namespace Fridge.Migrations
                     b.Navigation("AssociatedPayroll");
                 });
 
-            modelBuilder.Entity("Fridge.Models.Payroll.EmployeePayroll", b =>
+            modelBuilder.Entity("Database.Models.Payroll.EmployeePayroll", b =>
                 {
                     b.Navigation("Deductions");
 
                     b.Navigation("Earnings");
                 });
 
-            modelBuilder.Entity("Fridge.Models.Payroll.Organisation", b =>
+            modelBuilder.Entity("Database.Models.Payroll.Organisation", b =>
                 {
                     b.Navigation("PayRolls");
                 });
 
-            modelBuilder.Entity("Fridge.Models.Payroll.PaySpecification", b =>
+            modelBuilder.Entity("Database.Models.Payroll.PaySpecification", b =>
                 {
                     b.Navigation("Payroll");
                 });
 
-            modelBuilder.Entity("Fridge.Models.Payroll.Payroll", b =>
+            modelBuilder.Entity("Database.Models.Payroll.Payroll", b =>
                 {
                     b.Navigation("Employees");
                 });
 
-            modelBuilder.Entity("Fridge.Models.Payroll.Employee", b =>
+            modelBuilder.Entity("Database.Models.Payroll.Employee", b =>
                 {
                     b.Navigation("BankDetails");
 
