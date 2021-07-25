@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dtos", "Dtos\Dtos.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{77BD9BEC-CC08-43B6-9D55-FA4D8BD7A04C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{21DF7A07-0F86-4708-A731-E21AEF78EDFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{77BD9BEC-CC08-43B6-9D55-FA4D8BD7A04C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77BD9BEC-CC08-43B6-9D55-FA4D8BD7A04C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77BD9BEC-CC08-43B6-9D55-FA4D8BD7A04C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21DF7A07-0F86-4708-A731-E21AEF78EDFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21DF7A07-0F86-4708-A731-E21AEF78EDFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21DF7A07-0F86-4708-A731-E21AEF78EDFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21DF7A07-0F86-4708-A731-E21AEF78EDFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
