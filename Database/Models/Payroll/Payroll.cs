@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Fridge.Constants.Payroll;
+using Database.Constants.Payroll;
 
-namespace Fridge.Models.Payroll {
+namespace Database.Models.Payroll {
     public class Payroll {
         public Payroll()
         {

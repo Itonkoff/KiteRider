@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Fridge.Models.Payroll {
+namespace Database.Models.Payroll {
     public class EmployeePayroll {
         public EmployeePayroll()
         {

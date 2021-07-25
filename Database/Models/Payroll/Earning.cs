@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Fridge.Models.Payroll {
+namespace Database.Models.Payroll {
     public class Earning : PayrollValue {
         public Guid EmployeeId { get; set; }
         public Guid PayrollId { get; set; }

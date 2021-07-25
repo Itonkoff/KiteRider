@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Fridge.Models.Payroll {
+namespace Database.Models.Payroll {
     public class MedicalAid {
         public Guid MedicalAidSchemeId { get; set; }
         // associate with scheme

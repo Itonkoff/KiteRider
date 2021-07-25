@@ -1,4 +1,4 @@
-﻿namespace Fridge.Constants.Payroll {
+﻿namespace Database.Constants.Payroll {
     public enum PensionSchemes {
         
     }

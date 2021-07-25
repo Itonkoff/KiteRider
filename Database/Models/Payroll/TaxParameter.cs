@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Fridge.Models.Payroll {
+namespace Database.Models.Payroll {
     public class TaxParameter {
         public Guid TaxParameterId { get; set; }
         public bool TaxDirective { get; set; }

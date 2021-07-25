@@ -1,7 +1,7 @@
 ﻿using System;
-using Fridge.Constants.Payroll;
+using Database.Constants.Payroll;
 
-namespace Fridge.Models.Payroll {
+namespace Database.Models.Payroll {
     public class Person {
         public Guid PersonId { get; set; }
         public string Surname { get; set; }

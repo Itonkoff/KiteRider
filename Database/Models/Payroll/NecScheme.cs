@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Fridge.Models.Payroll {
+namespace Database.Models.Payroll {
     public class NecScheme {
         public Guid NecSchemeId { get; set; }
         public string Name { get; set; }

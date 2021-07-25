@@ -1,7 +1,7 @@
-﻿using Fridge.Models.Payroll;
+﻿using Database.Models.Payroll;
 using Microsoft.EntityFrameworkCore;
 
-namespace Fridge.Contexts {
+namespace Database.Contexts {
     public class PayRollDatabaseContext : DbContext {
         public DbSet<BankDetail> BankDetails;
         public DbSet<Deduction> Deductions { get; set; }
@@ -14,11 +14,15 @@ namespace Fridge.Contexts {
         public DbSet<PaySpecification> PaySpecifications { get; set; }
         public DbSet<Person> Persons { get; set; }
         public DbSet<Spouse> Spouses { get; set; }
-        
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
+        public PayRollDatabaseContext(DbContextOptions<PayRollDatabaseContext> options) : base(options)
         {
-            optionsBuilder.UseSqlServer("Server=localhost;Fridge=extra;Trusted_Connection=True;Enlist=False;");
         }
+
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //     optionsBuilder.UseSqlServer("Server=localhost;Fridge=extra;Trusted_Connection=True;Enlist=False;");
+        // }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -151,15 +155,15 @@ namespace Fridge.Contexts {
                 entity.ToTable("pay_values");
 
                 entity.Property(e => e.PayrollValueId).HasColumnName("id");
-                
+
                 entity.Property(e => e.Title).HasColumnName("title");
-                
+
                 entity.Property(e => e.Description).HasColumnName("description");
-                
+
                 entity.Property(e => e.EmployeeContribution).HasColumnName("e_contribution");
-                
+
                 entity.Property(e => e.OrganisationContribution).HasColumnName("o_contribution");
-                
+
                 entity.Property(e => e.Reference).HasColumnName("reference");
 
                 entity.HasDiscriminator<string>("type")
@@ -181,29 +185,29 @@ namespace Fridge.Contexts {
             modelBuilder.Entity<Person>(entity =>
             {
                 entity.ToTable("people");
-                
+
                 entity.Property(e => e.PersonId).HasColumnName("id");
-                
+
                 entity.Property(e => e.Surname).HasColumnName("surname");
-                
+
                 entity.Property(e => e.Names).HasColumnName("names");
-                
+
                 entity.Property(e => e.DateOfBirth).HasColumnName("dob");
-                
+
                 entity.Property(e => e.NationalId).HasColumnName("national_id");
-                
+
                 entity.Property(e => e.PassportNumber).HasColumnName("passport_id");
-                
+
                 entity.Property(e => e.MaritalStatus).HasColumnName("marital_status");
-                
+
                 entity.Property(e => e.HomeTelephone).HasColumnName("home_tel");
-                
+
                 entity.Property(e => e.CellNumber).HasColumnName("cell");
-                
+
                 entity.Property(e => e.EmailAddress).HasColumnName("email_address");
-                
+
                 entity.Property(e => e.HomeAddress).HasColumnName("home_address");
-                
+
                 entity.Property(e => e.PostalAddress).HasColumnName("postal_address");
 
                 entity.HasDiscriminator<string>("type")
@@ -213,15 +217,15 @@ namespace Fridge.Contexts {
             modelBuilder.Entity<Spouse>(entity =>
             {
                 entity.ToTable("spouses");
-                
+
                 entity.Property(e => e.SpouseId).HasColumnName("id");
-                
+
                 entity.Property(e => e.Names).HasColumnName("names");
-                
+
                 entity.Property(e => e.Surname).HasColumnName("surname");
-                
+
                 entity.Property(e => e.NationalId).HasColumnName("national_id");
-                
+
                 entity.Property(e => e.EmployeeSpouseId).HasColumnName("employee");
 
                 entity.HasOne(d => d.Employee)
@@ -229,8 +233,8 @@ namespace Fridge.Contexts {
                     .HasForeignKey(d => d.EmployeeSpouseId)
                     .OnDelete(DeleteBehavior.NoAction);
             });
-            
-            
+
+
             base.OnModelCreating(modelBuilder);
         }
     }
