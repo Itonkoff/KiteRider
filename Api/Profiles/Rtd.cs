@@ -16,6 +16,21 @@ namespace Api.Profiles {
                     op.MapFrom(src => src.Org))
                 .ForMember(dest => dest.PayRunDate, op =>
                     op.MapFrom(src => src.PayRunDays));
+
+            // EmployeePayroll
+            CreateMap<NewEmployeePayrollDto, EmployeePayroll>();
+
+            // Employee
+            CreateMap<NewEmployeeDto, Employee>();
+
+            // Spouse
+            CreateMap<NewEmployeeSpouseDto, Spouse>();
+
+            // BankingDetails
+            CreateMap<NewEmployeeBankDetailDto, BankDetail>();
+            
+            // PaySpecifications
+            CreateMap<NewPaySpecificationDto, PaySpecification>();
         }
     }
 }
