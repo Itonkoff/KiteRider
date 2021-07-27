@@ -7,16 +7,20 @@ using Dtos;
 using Dtos.Request;
 using Dtos.Response;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.Extensions.Logging;
 
 namespace Services.Api.Org {
     public class OrganisationService : IOrganisationService {
         private readonly PayRollDatabaseContext _payRollDatabaseContext;
         private readonly IMapper _mapper;
+        private readonly ILogger<OrganisationService> _logger;
 
-        public OrganisationService(PayRollDatabaseContext payRollDatabaseContext, IMapper mapper)
+        public OrganisationService(PayRollDatabaseContext payRollDatabaseContext, IMapper mapper,
+            ILogger<OrganisationService> logger)
         {
             _payRollDatabaseContext = payRollDatabaseContext;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<OrganisationDto> InsertOrganisation(NewOrganisationDto dto)
@@ -25,9 +29,11 @@ namespace Services.Api.Org {
             await _payRollDatabaseContext.AddAsync(organisation);
             if (await _payRollDatabaseContext.SaveChangesAsync() > 0)
             {
+                _logger.LogInformation("Created new organisation {OrganisationId}", organisation.OrganisationId);
                 return _mapper.Map<OrganisationDto>(organisation);
             }
 
+            _logger.LogWarning("For some reason the organisation was not persisted");
             return null;
         }
 
@@ -37,9 +43,11 @@ namespace Services.Api.Org {
             await _payRollDatabaseContext.AddAsync(payroll);
             if (await _payRollDatabaseContext.SaveChangesAsync() > 0)
             {
+                _logger.LogInformation("New Payroll created {PayrollId}", payroll.PayrollId);
                 return _mapper.Map<PayrollDto>(payroll);
             }
 
+            _logger.LogWarning("For some reason the Payroll was not persisted");
             return null;
         }
 
