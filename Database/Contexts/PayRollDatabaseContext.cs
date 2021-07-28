@@ -4,14 +4,13 @@ using Microsoft.EntityFrameworkCore;
 namespace Database.Contexts {
     public class PayRollDatabaseContext : DbContext {
         public DbSet<BankDetail> BankDetails;
-        public DbSet<Deduction> Deductions { get; set; }
-        public DbSet<Earning> Earnings { get; set; }
+        public DbSet<ContributoryDeduction> Deductions { get; set; }
+        public DbSet<ImmediateEarning> Earnings { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<EmployeePayroll> EmployeePayrolls { get; set; }
         public DbSet<Organisation> Organisations { get; set; }
         public DbSet<Payroll> Payrolls { get; set; }
         public DbSet<PayrollValue> PayrollValues { get; set; }
-        public DbSet<PaySpecification> PaySpecifications { get; set; }
         public DbSet<Person> Persons { get; set; }
         public DbSet<Spouse> Spouses { get; set; }
 
@@ -53,33 +52,18 @@ namespace Database.Contexts {
                     .OnDelete(DeleteBehavior.NoAction);
             });
 
-            modelBuilder.Entity<Deduction>(entity =>
+            modelBuilder.Entity<ContributoryDeduction>(entity =>
             {
-                entity.Property(e => e.EmployeeId).HasColumnName("d_employee");
 
-                entity.Property(e => e.PayrollId).HasColumnName("d_payroll");
-
-                entity.Property(e => e.PaySpecificationId).HasColumnName("d_pay_spec");
-
-                entity.HasOne(d => d.AssociatedPayroll)
-                    .WithMany(p => p.Deductions)
-                    .HasForeignKey(d => new {d.EmployeeId, d.PayrollId, d.PaySpecificationId})
-                    .OnDelete(DeleteBehavior.NoAction);
+                entity.Property(e => e.EmployeeContribution).HasColumnName("e_contribution");
+                
+                entity.Property(e => e.OrganisationContribution).HasColumnName("o_contribution");
             });
 
-            modelBuilder.Entity<Earning>(entity =>
-            {
-                entity.Property(e => e.EmployeeId).HasColumnName("e_employee");
-
-                entity.Property(e => e.PayrollId).HasColumnName("e_payroll");
-
-                entity.Property(e => e.PaySpecificationId).HasColumnName("e_pay_spec");
-
-                entity.HasOne(d => d.AssociatedPayroll)
-                    .WithMany(p => p.Earnings)
-                    .HasForeignKey(d => new {d.EmployeeId, d.PayrollId, d.PaySpecificationId})
-                    .OnDelete(DeleteBehavior.NoAction);
-            });
+            // modelBuilder.Entity<Earning>(entity =>
+            // {
+            //     
+            // });
 
             modelBuilder.Entity<Employee>(entity =>
             {
@@ -94,13 +78,11 @@ namespace Database.Contexts {
             {
                 entity.ToTable("employee_payroll");
 
-                entity.HasKey(e => new {e.EmployeeId, e.PayrollId, e.PaySpecificationId});
+                entity.HasKey(e => new {e.EmployeeId, e.PayrollId});
 
                 entity.Property(e => e.EmployeeId).HasColumnName("employee_id");
 
                 entity.Property(e => e.PayrollId).HasColumnName("payroll_id");
-
-                entity.Property(e => e.PaySpecificationId).HasColumnName("pay_spec_id");
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.PayRolls)
@@ -110,11 +92,6 @@ namespace Database.Contexts {
                 entity.HasOne(d => d.Payroll)
                     .WithMany(p => p.Employees)
                     .HasForeignKey(d => d.PayrollId)
-                    .OnDelete(DeleteBehavior.NoAction);
-
-                entity.HasOne(d => d.PaySpecification)
-                    .WithOne(p => p.Payroll)
-                    .HasForeignKey<EmployeePayroll>(d => d.PaySpecificationId)
                     .OnDelete(DeleteBehavior.NoAction);
             });
 
@@ -165,26 +142,11 @@ namespace Database.Contexts {
 
                 entity.Property(e => e.Description).HasColumnName("description");
 
-                entity.Property(e => e.EmployeeContribution).HasColumnName("e_contribution");
-
-                entity.Property(e => e.OrganisationContribution).HasColumnName("o_contribution");
-
                 entity.Property(e => e.Reference).HasColumnName("reference");
 
                 entity.HasDiscriminator<string>("type")
-                    .HasValue<Deduction>("d")
-                    .HasValue<Earning>("e");
-            });
-
-            modelBuilder.Entity<PaySpecification>(entity =>
-            {
-                entity.ToTable("pay_specs");
-
-                entity.Property(e => e.PaySpecificationId).HasColumnName("id");
-
-                entity.Property(e => e.Period).HasColumnName("period");
-
-                entity.Property(e => e.BaseAmount).HasColumnName("base_amt");
+                    .HasValue<ContributoryDeduction>("d")
+                    .HasValue<ImmediateEarning>("e");
             });
 
             modelBuilder.Entity<Person>(entity =>
@@ -238,7 +200,6 @@ namespace Database.Contexts {
                     .HasForeignKey(d => d.EmployeeSpouseId)
                     .OnDelete(DeleteBehavior.NoAction);
             });
-
 
             base.OnModelCreating(modelBuilder);
         }

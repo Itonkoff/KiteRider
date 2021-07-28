@@ -29,8 +29,7 @@ namespace Api.Profiles {
             // BankingDetails
             CreateMap<NewEmployeeBankDetailDto, BankDetail>();
             
-            // PaySpecifications
-            CreateMap<NewPaySpecificationDto, PaySpecification>();
+            
         }
     }
 }

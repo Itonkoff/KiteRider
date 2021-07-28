@@ -12,6 +12,7 @@ namespace Database.Models.Payroll {
         public Guid PayrollId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public int NumberOfEmployees { get; set; }
         public int PayRunDate { get; set; }
         public DateTime? LastRunDate { get; set; }
         public PayrollStatus Status { get; set; }

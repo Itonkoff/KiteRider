@@ -10,6 +10,8 @@ namespace Database.Models.Payroll {
 
         public Guid OrganisationId { get; set; }
         public string Name { get; set; }
+        public string RegistrationNumber { get; set; }
+        public string CountryOfOrigin { get; set; } 
 
         public ICollection<Payroll> PayRolls { get; set; }
 
