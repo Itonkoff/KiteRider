@@ -8,6 +8,6 @@ namespace Database.Models.Payroll {
         public string Description { get; set; }
         public string Reference { get; set; }
 
-        public EmployeePayroll AssociatedPayroll { get; set; }
+        public Payroll AssociatedPayroll { get; set; }
     }
 }

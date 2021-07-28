@@ -7,6 +7,10 @@ namespace Database.Models.Payroll {
         public Payroll()
         {
             Employees = new HashSet<EmployeePayroll>();
+            ContributoryDeductions = new HashSet<ContributoryDeduction>();
+            SingleFundedDeductions = new HashSet<SingleFundedDeduction>();
+            ImmediateEarnings = new HashSet<ImmediateEarning>();
+            PeriodicEarnings = new HashSet<PeriodicEarning>();
         }
 
         public Guid PayrollId { get; set; }
@@ -20,7 +24,11 @@ namespace Database.Models.Payroll {
         public bool SoftDeleted { get; set; }
 
         public Organisation Organisation { get; set; }
-        
+        public ICollection<ContributoryDeduction> ContributoryDeductions { get; set; }
+        public ICollection<SingleFundedDeduction> SingleFundedDeductions { get; set; }
+        public ICollection<ImmediateEarning> ImmediateEarnings { get; set; }
+        public ICollection<PeriodicEarning> PeriodicEarnings { get; set; }
+
         public ICollection<EmployeePayroll> Employees;
 
         public void InitialiseStatus()

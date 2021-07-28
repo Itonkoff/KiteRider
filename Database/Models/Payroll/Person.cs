@@ -9,7 +9,6 @@ namespace Database.Models.Payroll {
         public DateTime DateOfBirth { get; set; }
         public string NationalId { get; set; }
         public string PassportNumber { get; set; }
-        public MaritalStatus MaritalStatus { get; set; }
         public string HomeTelephone { get; set; }
         public string CellNumber { get; set; }
         public string EmailAddress { get; set; }
