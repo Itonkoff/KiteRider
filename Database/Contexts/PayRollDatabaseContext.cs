@@ -138,10 +138,12 @@ namespace Database.Contexts {
 
             modelBuilder.Entity<PayrollValue>(entity =>
             {
-                entity.ToTable("pay_values");
+                entity.ToTable("ern_ddn");
 
                 entity.Property(e => e.PayrollValueId).HasColumnName("id");
 
+                entity.Property(e => e.PayrollId).HasColumnName("payroll");
+                
                 entity.Property(e => e.Title).HasColumnName("title");
 
                 entity.Property(e => e.Description).HasColumnName("description");
@@ -239,6 +241,8 @@ namespace Database.Contexts {
 
             modelBuilder.Entity<EmployeeImmediateEarning>(entity =>
             {
+                entity.ToTable("emp_ies");
+                
                 entity.HasKey(e => new {e.EmployeeId, e.ImmediateEarningId});
 
                 entity.Property(e => e.EmployeeId).HasColumnName("emp_id");
@@ -258,6 +262,8 @@ namespace Database.Contexts {
 
             modelBuilder.Entity<EmployeePeriodicEarning>(entity =>
             {
+                entity.ToTable("emp_pes");
+
                 entity.HasKey(e => new {e.EmployeeId, e.PeriodicEarningId});
 
                 entity.Property(e => e.EmployeeId).HasColumnName("emp_id");
@@ -277,6 +283,8 @@ namespace Database.Contexts {
 
             modelBuilder.Entity<EmployeeSingleFundedDeduction>(entity =>
             {
+                entity.ToTable("emp_fds");
+
                 entity.HasKey(e => new {e.EmployeeId, e.SingleFundedDeductionId});
 
                 entity.Property(e => e.EmployeeId).HasColumnName("emp_id");
@@ -296,6 +304,8 @@ namespace Database.Contexts {
 
             modelBuilder.Entity<EmployeeContributoryDeduction>(entity =>
             {
+                entity.ToTable("emp_cds");
+
                 entity.HasKey(e => new {e.EmployeeId, e.ContributoryDeductionId});
 
                 entity.Property(e => e.EmployeeId).HasColumnName("emp_id");

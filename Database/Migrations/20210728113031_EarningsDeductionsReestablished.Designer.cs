@@ -4,14 +4,16 @@ using Database.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Fridge.Migrations
 {
     [DbContext(typeof(PayRollDatabaseContext))]
-    partial class PayRollDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210728113031_EarningsDeductionsReestablished")]
+    partial class EarningsDeductionsReestablished
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,7 +74,7 @@ namespace Fridge.Migrations
 
                     b.HasIndex("ContributoryDeductionId");
 
-                    b.ToTable("emp_cds");
+                    b.ToTable("EmployeeContributoryDeductions");
                 });
 
             modelBuilder.Entity("Database.Models.Payroll.EmployeeImmediateEarning", b =>
@@ -92,7 +94,7 @@ namespace Fridge.Migrations
 
                     b.HasIndex("ImmediateEarningId");
 
-                    b.ToTable("emp_ies");
+                    b.ToTable("EmployeeImmediateEarnings");
                 });
 
             modelBuilder.Entity("Database.Models.Payroll.EmployeePayroll", b =>
@@ -129,7 +131,7 @@ namespace Fridge.Migrations
 
                     b.HasIndex("PeriodicEarningId");
 
-                    b.ToTable("emp_pes");
+                    b.ToTable("EmployeePeriodicEarnings");
                 });
 
             modelBuilder.Entity("Database.Models.Payroll.EmployeeSingleFundedDeduction", b =>
@@ -149,7 +151,7 @@ namespace Fridge.Migrations
 
                     b.HasIndex("SingleFundedDeductionId");
 
-                    b.ToTable("emp_fds");
+                    b.ToTable("EmployeeSingleFundedDeductions");
                 });
 
             modelBuilder.Entity("Database.Models.Payroll.Organisation", b =>
@@ -236,8 +238,7 @@ namespace Fridge.Migrations
                         .HasColumnName("description");
 
                     b.Property<Guid>("PayrollId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("payroll");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Reference")
                         .HasColumnType("nvarchar(max)")
@@ -253,7 +254,7 @@ namespace Fridge.Migrations
 
                     b.HasKey("PayrollValueId");
 
-                    b.ToTable("ern_ddn");
+                    b.ToTable("pay_values");
 
                     b.HasDiscriminator<string>("type").HasValue("PayrollValue");
                 });
