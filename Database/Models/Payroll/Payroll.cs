@@ -30,10 +30,5 @@ namespace Database.Models.Payroll {
         public ICollection<PeriodicEarning> PeriodicEarnings { get; set; }
 
         public ICollection<EmployeePayroll> Employees;
-
-        public void InitialiseStatus()
-        {
-            Status = PayrollStatus.PreRun;
-        }
     }
 }
