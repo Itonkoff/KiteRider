@@ -28,7 +28,7 @@ namespace Api.Controllers {
             _logger.LogInformation("New organisation =================================");
             var organisation = await _organisationService.InsertOrganisation(dto);
             if (organisation != null)
-                return Ok(organisation);
+                return Created("", organisation);
             return BadRequest();
         }
 
@@ -43,7 +43,7 @@ namespace Api.Controllers {
             _logger.LogInformation("New payroll =================================");
             var payroll = await _organisationService.InsertPayroll(dto);
             if (payroll != null)
-                return Ok(payroll);
+                return Created("", payroll);
             return BadRequest();
         }
 

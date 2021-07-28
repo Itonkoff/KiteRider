@@ -2,7 +2,6 @@
 
 namespace Dtos.Request {
     public class NewEmployeeSpouseDto {  
-        public Guid PersonId { get; set; }
         public string Surname { get; set; }
         public string Names { get; set; }
         public DateTime DateOfBirth { get; set; }

@@ -27,5 +27,43 @@ namespace Api.Controllers {
                 return Created("", newEmployeeDto);
             return BadRequest();
         }
+
+        [HttpPost("{payrollId:guid}/ie")]
+        public async Task<IActionResult> NewImmediateEarning(Guid payrollId, [FromBody] NewEarningDeductionDto dto)
+        {
+            var immediateEarning = await _payrollService.InsertImmediateEarning(payrollId, dto);
+            if (immediateEarning != null)
+                return Created("", immediateEarning);
+            return BadRequest();
+        }
+
+        [HttpPost("{payrollId:guid}/pe")]
+        public async Task<IActionResult> NewPeriodicEarning(Guid payrollId, [FromBody] NewPeriodicEarningDto dto)
+        {
+            var immediateEarning = await _payrollService.InsertPeriodicEarning(payrollId, dto);
+            if (immediateEarning != null)
+                return Created("", immediateEarning);
+            return BadRequest();
+        }
+
+        [HttpPost("{payrollId:guid}/sd")]
+        public async Task<IActionResult> NewSingleFinancedDeduction(Guid payrollId,
+            [FromBody] NewEarningDeductionDto dto)
+        {
+            var immediateEarning = await _payrollService.InsertSingleFinancedDeduction(payrollId, dto);
+            if (immediateEarning != null)
+                return Created("", immediateEarning);
+            return BadRequest();
+        }
+
+        [HttpPost("{payrollId:guid}/cd")]
+        public async Task<IActionResult> NewContributoryDeduction(Guid payrollId,
+            [FromBody] NewContributoryDeductionDto dto)
+        {
+            var immediateEarning = await _payrollService.InsertContributoryDeduction(payrollId, dto);
+            if (immediateEarning != null)
+                return Created("", immediateEarning);
+            return BadRequest();
+        }
     }
 }

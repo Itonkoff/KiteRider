@@ -21,15 +21,27 @@ namespace Api.Profiles {
             CreateMap<NewEmployeePayrollDto, EmployeePayroll>();
 
             // Employee
-            CreateMap<NewEmployeeDto, Employee>();
+            CreateMap<NewEmployeeDto, Employee>().ReverseMap();
 
             // Spouse
-            CreateMap<NewEmployeeSpouseDto, Spouse>();
+            CreateMap<NewEmployeeSpouseDto, Spouse>().ReverseMap();
 
             // BankingDetails
-            CreateMap<NewEmployeeBankDetailDto, BankDetail>();
+            CreateMap<NewEmployeeBankDetailDto, BankDetail>().ReverseMap();
             
+            // ImmediateEarning
+            CreateMap<NewEarningDeductionDto, ImmediateEarning>();
             
+            // SingleFundedDeduction
+            CreateMap<NewEarningDeductionDto, SingleFundedDeduction>();
+            
+            // PeriodicEarning
+            CreateMap<NewPeriodicEarningDto, PeriodicEarning>();
+            
+            // ContributoryDeduction
+            CreateMap<NewContributoryDeductionDto, ContributoryDeduction>();
+
+
         }
     }
 }

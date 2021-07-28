@@ -9,5 +9,10 @@ namespace Database.Models.Payroll {
         public string Reference { get; set; }
 
         public Payroll AssociatedPayroll { get; set; }
+
+        public void AddToPayroll(Guid payrollId)
+        {
+            PayrollId = payrollId;
+        }
     }
 }
