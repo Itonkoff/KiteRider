@@ -8,6 +8,10 @@ namespace Database.Models.Payroll {
 
         public Employee Employee { get; set; }
         public SingleFundedDeduction Deduction { get; set; }
-        
+
+        public void AttachEmployee(Guid employeeId)
+        {
+            EmployeeId = employeeId;
+        }
     }
 }

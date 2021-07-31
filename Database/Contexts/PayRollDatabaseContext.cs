@@ -37,9 +37,7 @@ namespace Database.Contexts {
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<BankDetail>(entity =>
-            
-            
+            modelBuilder.Entity<BankDetail>(entity =>            
             {
                 entity.ToTable("bank_details");
 

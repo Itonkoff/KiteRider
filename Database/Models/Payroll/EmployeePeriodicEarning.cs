@@ -8,6 +8,10 @@ namespace Database.Models.Payroll {
 
         public Employee Employee { get; set; }
         public PeriodicEarning Earning { get; set; }
-        
+
+        public void AttachEmployee(Guid employeeId)
+        {
+            EmployeeId = employeeId;
+        }
     }
 }
