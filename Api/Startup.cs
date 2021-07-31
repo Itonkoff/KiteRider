@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
+using Services.Api.Emp;
 using Services.Api.Org;
 using Services.Api.PayrollService;
 
@@ -48,6 +49,7 @@ namespace Api {
             // Custom services
             services.AddTransient<IOrganisationService, OrganisationService>();
             services.AddTransient<IPayrollService, PayrollService>();
+            services.AddTransient<IEmployeeService, EmployeeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
